@@ -1,0 +1,101 @@
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form{
+        width: 500px;
+        margin-right: 1rem;
+        text-align: center;
+
+        input, textarea{
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid rgba($color: #000000, $alpha: 0.137);
+            border-radius: 0.3rem;
+        }
+
+        textarea {
+            resize: none;             
+        }
+
+        button{
+            width: 40%;
+            padding: 0.8rem;
+            background: rgb(195, 255, 56);
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: filter .2s;
+
+            &:hover{
+                filter: brightness(0.9);
+            }
+        }
+    }
+}
+
+.phoneBox{
+    width: 500px;
+    height: 500px;
+    padding: 1rem;
+    background-color: rgb(237, 255, 194);
+
+    text-align: center;
+    border-radius: 0.8rem;
+    margin-left: 5rem;
+    overflow: auto;
+
+    input{
+        width: 100%;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border: 1px solid rgba($color: #000000, $alpha: 0.137);
+        border-radius: 0.3rem;
+    }
+
+    div.phoneCard{
+        max-height: 200px;
+        background-color: rgb(229, 240, 182);
+        text-align: left;
+        border-radius: 0.5rem;
+        box-sizing: content-box;
+
+        padding: 1rem;
+
+        .topBox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            a{
+                color: red;
+                cursor: pointer;
+                margin-right: 0.5rem;
+                transition: .2s;
+
+                &:hover{
+                    filter: brightness(0.9);
+                }
+            }
+        }
+
+        .name{
+            color: #1c1c1c;
+            font-size: 1.5rem;
+            text-align: left;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        
+    }
+
+    .moreInfo{
+        p{
+            margin: 0;
+        }
+    }
+}
