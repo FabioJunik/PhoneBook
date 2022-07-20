@@ -1,5 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+
+import {database} from '../services/firebase';
+
 import styles from '../styles/Home.module.scss';
 
 const Home: NextPage = () => {
