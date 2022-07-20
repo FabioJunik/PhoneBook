@@ -8,18 +8,18 @@ import styles from '../styles/Home.module.scss';
 
 
 interface contactDataProps{
-  nome: String;
-  email: String;
-  phone: Number;
-  observation: String;
+  nome: string;
+  email: string;
+  phone: string;
+  observation: string;
 }
 
 const Home: NextPage = () => {
 
-  const [nome, setNome] = useState<String>('');
-  const [email, setEmail] = useState<String>('');
-  const [phone, setPhone] = useState<Number>(0);
-  const [observation, setObservation ] = useState<String>('');
+  const [nome, setNome] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [observation, setObservation ] = useState<string>('');
 
   function writeDataInDatabase(e: FormEvent):void{
     e.preventDefault();
@@ -34,7 +34,11 @@ const Home: NextPage = () => {
     }
 
     ref.push(contactData);
-
+    
+    setNome('');
+    setEmail('');
+    setObservation('');
+    setPhone('');
   }
 
   return (
@@ -49,20 +53,24 @@ const Home: NextPage = () => {
           <input 
             type="text" 
             placeholder='Nome' 
+            value={nome}
             onChange={e => setNome(e.target.value)}
           />
           <input 
             type="text" 
             placeholder='email' 
+            value={email}
             onChange={e => setEmail(e.target.value)}
           />
           <input 
             type="tel" 
             placeholder='Telefone' 
-            onChange={e => setPhone(Number(e.target.value))}
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
           />
           <textarea 
             placeholder='Observações' 
+            value={observation}
             onChange={e => setObservation(e.target.value)}>
 
           </textarea>
