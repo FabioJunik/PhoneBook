@@ -1,11 +1,42 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { FormEvent, useState } from 'react';
 
 import {database} from '../services/firebase';
 
 import styles from '../styles/Home.module.scss';
 
+
+interface contactDataProps{
+  nome: String;
+  email: String;
+  phone: Number;
+  observation: String;
+}
+
 const Home: NextPage = () => {
+
+  const [nome, setNome] = useState<String>('');
+  const [email, setEmail] = useState<String>('');
+  const [phone, setPhone] = useState<Number>(0);
+  const [observation, setObservation ] = useState<String>('');
+
+  function writeDataInDatabase(e: FormEvent):void{
+    e.preventDefault();
+
+    const ref = database.ref('contact');
+
+    const contactData:contactDataProps ={
+      nome,
+      email,
+      phone,
+      observation
+    }
+
+    ref.push(contactData);
+
+  }
+
   return (
     <>
       <Head>
@@ -14,11 +45,28 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <form>
-          <input type="text" placeholder='Nome'/>
-          <input type="text" placeholder='email'/>
-          <input type="tel" placeholder='Telefone'/>
-          <textarea placeholder='Observações'></textarea>
+        <form onSubmit={writeDataInDatabase}>
+          <input 
+            type="text" 
+            placeholder='Nome' 
+            onChange={e => setNome(e.target.value)}
+          />
+          <input 
+            type="text" 
+            placeholder='email' 
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input 
+            type="tel" 
+            placeholder='Telefone' 
+            onChange={e => setPhone(Number(e.target.value))}
+          />
+          <textarea 
+            placeholder='Observações' 
+            onChange={e => setObservation(e.target.value)}>
+
+          </textarea>
+
           <button type='submit'>Salvar</button>
         </form>
         <div className={styles.phoneBox}>
