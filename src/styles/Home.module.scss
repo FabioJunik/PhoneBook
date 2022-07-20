@@ -18,13 +18,17 @@
         }
 
         textarea {
-            resize: none;             
+            resize: none;      
+            height: 200px;       
         }
 
         button{
             width: 40%;
             padding: 0.8rem;
-            background: rgb(195, 255, 56);
+            background: rgb(44, 176, 185);
+            width: 100%;
+            color: #fff;
+            font-size: 1rem;
             border: none;
             border-radius: 0.5rem;
             cursor: pointer;
@@ -41,7 +45,7 @@
     width: 500px;
     height: 500px;
     padding: 1rem;
-    background-color: rgb(237, 255, 194);
+    background-color: #191a21;
 
     text-align: center;
     border-radius: 0.8rem;
@@ -58,20 +62,20 @@
 
     div.phoneCard{
         max-height: 200px;
-        background-color: rgb(229, 240, 182);
+        background-color: rgb(44, 176, 185);
         text-align: left;
         border-radius: 0.5rem;
         box-sizing: content-box;
 
         padding: 1rem;
-
+        & + .phoneCard{margin-top: 1rem;}
         .topBox {
             display: flex;
             justify-content: space-between;
             align-items: center;
 
             a{
-                color: red;
+                color: rgb(163, 33, 152);
                 cursor: pointer;
                 margin-right: 0.5rem;
                 transition: .2s;
