@@ -1,13 +1,14 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import {database} from '../services/firebase';
 
 import styles from '../styles/Home.module.scss';
 
 
-interface contactDataProps{
+interface contactProps{
+  key?: string;
   nome: string;
   email: string;
   phone: string;
@@ -21,12 +22,32 @@ const Home: NextPage = () => {
   const [phone, setPhone] = useState<string>('');
   const [observation, setObservation ] = useState<string>('');
 
+  const [contact, setContact] = useState<contactProps[]>([]);
+
+  useEffect(()=>{
+    const contactsRef = database.ref('contact');
+
+    contactsRef.on('value', result =>{
+      const contactResult = Object.entries<contactProps>(result.val()??{}).map(([key, value])=>{
+        return {
+          'key': key,
+          'nome': value.nome,
+          'phone': value.phone,
+          'email': value.email,
+          'observation': value.observation
+        }
+      });
+
+      setContact(contactResult);
+    })
+  },[]);
+
   function writeDataInDatabase(e: FormEvent):void{
     e.preventDefault();
 
     const ref = database.ref('contact');
 
-    const contactData:contactDataProps ={
+    const contactData:contactProps ={
       nome,
       email,
       phone,
@@ -79,20 +100,23 @@ const Home: NextPage = () => {
         </form>
         <div className={styles.phoneBox}>
           <input type="text" placeholder='Buscar'/>
-          <div className={styles.phoneCard}>
-            <div className={styles.topBox}>
-              <p className={styles.name}>Fabio dos santos </p>
-              <div className={styles.options}>
-                <a href="">Editar</a>
-                <a href="">Excluir</a>
+          {contact.map(contact => (
+            <div className={styles.phoneCard} key={contact.key}>
+              <div className={styles.topBox}>
+                <p className={styles.name}>{contact.nome}</p>
+                <div className={styles.options}>
+                  <a href="">Editar</a>
+                  <a href="">Excluir</a>
+                </div>
+              </div>
+              <div className={styles.moreInfo}>
+                <p>{contact.email}</p>
+                <p>{contact.phone}</p>
+                <p>{contact.observation}</p>
               </div>
             </div>
-            <div className={styles.moreInfo}>
-              <p>fabiojunik@gmail.com</p>
-              <p>994305673</p>
-              <p>Uma pessoa imortal</p>  
-            </div>
-          </div>
+          ))}
+          
         </div>          
       </main>
   </>
